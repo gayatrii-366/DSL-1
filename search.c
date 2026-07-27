@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 typedef struct Student {
     char name[10];
@@ -26,16 +27,39 @@ void display(Student s[10], int n) {
     }
 }
 
+// Linear search 
+int linearSearch(Student s[10], int n, int searchRoll) {
+    for (int i = 0; i < n; i++) {
+        if (s[i].roll == searchRoll) {
+            return i; 
+        }
+    }
+    return -1; 
+}
+
 int main() {
-    int n;
+    int n, searchRoll, resultIndex;
     Student s[10];
     
     printf("Enter number of students (max 10): ");
     scanf("%d", &n);
     
-    
     accept(s, n);
     display(s, n);
+ 
+    printf("Enter the roll number to search for: ");
+    scanf("%d", &searchRoll);
+    
+    resultIndex = linearSearch(s, n, searchRoll);
+    
+    if (resultIndex != -1) {
+        printf("\nStudent Found!\n");
+        printf("Name: %s\n", s[resultIndex].name);
+        printf("Roll Number: %d\n", s[resultIndex].roll);
+    } else {
+        printf("\nStudent with roll number %d not found.\n", searchRoll);
+    }
     
     return 0;
 }
+
