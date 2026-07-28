@@ -19,7 +19,6 @@ void input(struct Data a[10], int size) {
 
 void printData(struct Data a[10], int size) {
     int i;
-    printf("\n--- Student Details ---\n");
     for (i = 0; i < size; i++) {
         printf("Student %d | Name: %s | Roll Number: %d\n", i + 1, a[i].n, a[i].r);
     }
@@ -107,11 +106,11 @@ int main() {
         printf("1. Accept Student Data\n");
         printf("2. Display All Students\n");
         printf("3. Linear Search\n");
-        printf("4. Binary Search (Auto-Bubble Sort)\n");
-        printf("5. Selection Sort (By Roll Number)\n");
-        printf("6. Insertion Sort (By Roll Number)\n");
+        printf("4. Binary Search \n");
+        printf("5. Selection Sort \n");
+        printf("6. Insertion Sort \n");
         printf("7. Exit\n");
-        printf("Enter your choice (1-7): ");
+        printf("Enter your choice from above: ");
         scanf("%d", &ch);
 
         switch (ch) {
@@ -152,7 +151,6 @@ int main() {
                     printf("\nNo student records available. Please accept data first.\n");
                     break;
                 }
-                printf("\nSorting student records by roll number using Bubble Sort for binary search\n");
                 bubble(list, count);
                 printData(list, count);
                 printf("Enter the roll number to search for: ");
