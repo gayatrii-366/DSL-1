@@ -1,99 +1,96 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct Student {
-    char name[10];
-    int roll;
-} Student;
+struct Data {
+    char n[10];
+    int r;
+};
 
-void accept(Student s[10], int n) {
+void input(struct Data a[10], int size) {
     int i;
-    for (i = 0; i < n; i++) {
+    for (i = 0; i < size; i++) {
         printf("\nEnter details for student %d:\n", i + 1);
         printf("Enter name: ");
-        scanf("%s", s[i].name);
+        scanf("%s", a[i].n);
         printf("Enter roll number: ");
-        scanf("%d", &s[i].roll);
+        scanf("%d", &a[i].r);
     }
 }
 
-void display(Student s[10], int n) {
+void printData(struct Data a[10], int size) {
     int i;
     printf("\n--- Student Details ---\n");
-    for (i = 0; i < n; i++) {
-        printf("Student %d | Name: %s | Roll Number: %d\n", i + 1, s[i].name, s[i].roll);
+    for (i = 0; i < size; i++) {
+        printf("Student %d | Name: %s | Roll Number: %d\n", i + 1, a[i].n, a[i].r);
     }
 }
 
-// Linear search
-int linearSearch(Student s[10], int n, int searchRoll) {
-    for (int i = 0; i < n; i++) {
-        if (s[i].roll == searchRoll) {
+int search1(struct Data a[10], int size, int k) {
+    int i;
+    for (i = 0; i < size; i++) {
+        if (a[i].r == k) {
             return i;
         }
     }
     return -1;
 }
 
-// Bubble sort
-void sortByRollNumber(Student s[10], int n) {
+void bubble(struct Data a[10], int size) {
     int i, j;
-    Student temp;
-    for (i = 0; i < n - 1; i++) {
-        for (j = 0; j < n - i - 1; j++) {
-            if (s[j].roll > s[j + 1].roll) {
-                temp = s[j];
-                s[j] = s[j + 1];
-                s[j + 1] = temp;
+    struct Data t;
+    for (i = 0; i < size - 1; i++) {
+        for (j = 0; j < size - i - 1; j++) {
+            if (a[j].r > a[j + 1].r) {
+                t = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = t;
             }
         }
     }
 }
 
-// Selection Sort
-void selectionSort(Student s[10], int n) {
-    int i, j, minIndex;
-    Student temp;
-    for (i = 0; i < n - 1; i++) {
-        minIndex = i;
-        for (j = i + 1; j < n; j++) {
-            if (s[j].roll < s[minIndex].roll) {
-                minIndex = j;
+void selectSort(struct Data a[10], int size) {
+    int i, j, m;
+    struct Data t;
+    for (i = 0; i < size - 1; i++) {
+        m = i;
+        for (j = i + 1; j < size; j++) {
+            if (a[j].r < a[m].r) {
+                m = j;
             }
         }
-        if (minIndex != i) {
-            temp = s[i];
-            s[i] = s[minIndex];
-            s[minIndex] = temp;
+        if (m != i) {
+            t = a[i];
+            a[i] = a[m];
+            a[m] = t;
         }
     }
 }
 
-// Insertion Sort
-void insertionSort(Student s[10], int n) {
+void insertSort(struct Data a[10], int size) {
     int i, j;
-    Student key;
-    for (i = 1; i < n; i++) {
-        key = s[i];
+    struct Data temp;
+    for (i = 1; i < size; i++) {
+        temp = a[i];
         j = i - 1;
-        while (j >= 0 && s[j].roll > key.roll) {
-            s[j + 1] = s[j];
+        while (j >= 0 && a[j].r > temp.r) {
+            a[j + 1] = a[j];
             j = j - 1;
         }
-        s[j + 1] = key;
+        a[j + 1] = temp;
     }
 }
 
-// Binary search
-int binarySearch(Student s[10], int n, int searchRoll) {
+int search2(struct Data a[10], int size, int k) {
     int low = 0;
-    int high = n - 1;
+    int high = size - 1;
+    int mid;
     while (low <= high) {
-        int mid = low + (high - low) / 2;
-        if (s[mid].roll == searchRoll) {
+        mid = low + (high - low) / 2;
+        if (a[mid].r == k) {
             return mid;
         }
-        if (s[mid].roll < searchRoll) {
+        if (a[mid].r < k) {
             low = mid + 1;
         } else {
             high = mid - 1;
@@ -103,8 +100,8 @@ int binarySearch(Student s[10], int n, int searchRoll) {
 }
 
 int main() {
-    int n = 0, searchRoll, resultIndex, choice;
-    Student s[10];
+    int count = 0, target, pos, ch;
+    struct Data list[10];
 
     do {
         printf("1. Accept Student Data\n");
@@ -115,75 +112,75 @@ int main() {
         printf("6. Insertion Sort (By Roll Number)\n");
         printf("7. Exit\n");
         printf("Enter your choice (1-7): ");
-        scanf("%d", &choice);
+        scanf("%d", &ch);
 
-        switch (choice) {
+        switch (ch) {
             case 1:
                 printf("Enter number of students (max 10): ");
-                scanf("%d", &n);
-                if (n > 0 && n <= 10) {
-                    accept(s, n);
+                scanf("%d", &count);
+                if (count > 0 && count <= 10) {
+                    input(list, count);
                 } else {
                     printf("Invalid number of students. Please try again.\n");
-                    n = 0;
+                    count = 0;
                 }
                 break;
             case 2:
-                if (n == 0) {
+                if (count == 0) {
                     printf("\nNo student records available. Please accept data first.\n");
                 } else {
-                    display(s, n);
+                    printData(list, count);
                 }
                 break;
             case 3:
-                if (n == 0) {
+                if (count == 0) {
                     printf("\nNo student records available. Please accept data first.\n");
                     break;
                 }
                 printf("Enter the roll number to search for: ");
-                scanf("%d", &searchRoll);
-                resultIndex = linearSearch(s, n, searchRoll);
-                if (resultIndex != -1) {
-                    printf("\n[Linear Search] Student Found at index %d!\n", resultIndex);
-                    printf("Name: %s | Roll Number: %d\n", s[resultIndex].name, s[resultIndex].roll);
+                scanf("%d", &target);
+                pos = search1(list, count, target);
+                if (pos != -1) {
+                    printf("\n[Linear Search] Student Found at index %d!\n", pos);
+                    printf("Name: %s | Roll Number: %d\n", list[pos].n, list[pos].r);
                 } else {
-                    printf("\nStudent with roll number %d not found.\n", searchRoll);
+                    printf("\nStudent with roll number %d not found.\n", target);
                 }
                 break;
             case 4:
-                if (n == 0) {
+                if (count == 0) {
                     printf("\nNo student records available. Please accept data first.\n");
                     break;
                 }
-                printf("\nSorting student records by roll number using Bubble Sort for binary search...\n");
-                sortByRollNumber(s, n);
-                display(s, n);
+                printf("\nSorting student records by roll number using Bubble Sort for binary search\n");
+                bubble(list, count);
+                printData(list, count);
                 printf("Enter the roll number to search for: ");
-                scanf("%d", &searchRoll);
-                resultIndex = binarySearch(s, n, searchRoll);
-                if (resultIndex != -1) {
-                    printf("\n[Binary Search] Student Found at index %d!\n", resultIndex);
-                    printf("Name: %s | Roll Number: %d\n", s[resultIndex].name, s[resultIndex].roll);
+                scanf("%d", &target);
+                pos = search2(list, count, target);
+                if (pos != -1) {
+                    printf("\n[Binary Search] Student Found at index %d!\n", pos);
+                    printf("Name: %s | Roll Number: %d\n", list[pos].n, list[pos].r);
                 } else {
-                    printf("\nStudent with roll number %d not found.\n", searchRoll);
+                    printf("\nStudent with roll number %d not found.\n", target);
                 }
                 break;
             case 5:
-                if (n == 0) {
+                if (count == 0) {
                     printf("\nNo student records available. Please accept data first.\n");
                 } else {
                     printf("\nSorting student records using Selection Sort...\n");
-                    selectionSort(s, n);
-                    display(s, n);
+                    selectSort(list, count);
+                    printData(list, count);
                 }
                 break;
             case 6:
-                if (n == 0) {
+                if (count == 0) {
                     printf("\nNo student records available. Please accept data first.\n");
                 } else {
-                    printf("\nSorting student records using Insertion Sort...\n");
-                    insertionSort(s, n);
-                    display(s, n);
+                    printf("\nSorting student records using Insertion Sort\n");
+                    insertSort(list, count);
+                    printData(list, count);
                 }
                 break;
             case 7:
@@ -192,7 +189,7 @@ int main() {
             default:
                 printf("\nInvalid choice! Please select an option between 1 and 7.\n");
         }
-    } while (choice != 7);
+    } while (ch != 7);
 
     return 0;
 }
