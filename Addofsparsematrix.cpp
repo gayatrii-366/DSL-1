@@ -28,7 +28,7 @@ int acceptAndVerifyMatrix(int matrix[][3], int matrixNum) {
         if (matrix[i][0] < 0 || matrix[i][0] >= rows || matrix[i][1] < 0 || matrix[i][1] >= cols) {
             printf("\n[Validation Error]: Coordinates (%d, %d) out of matrix bounds (%d x %d)!\n", 
                    matrix[i][0], matrix[i][1], rows, cols);
-            return 0; // Invalid
+            return 0; 
         }
 
         if (matrix[i][0] < lastRow || (matrix[i][0] == lastRow && matrix[i][1] <= lastCol)) {
