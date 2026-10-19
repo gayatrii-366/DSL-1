@@ -96,7 +96,7 @@ int main() {
     int choice;
 
     while (1) {
-        printf("\n--- Polynomial Operations Menu ---\n");
+        printf("\nPolynomial Operations Menu \n");
         printf("1. Create Polynomial 1\n");
         printf("2. Create Polynomial 2\n");
         printf("3. Display Polynomials\n");
