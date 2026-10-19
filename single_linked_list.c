@@ -92,7 +92,7 @@ int main() {
     int choice, val;
 
     while (1) {
-        printf("\n--- Singly Linked List Menu ---\n");
+        printf("\nSingly Linked List Menu\n");
         printf("1. Insert at Beginning\n");
         printf("2. Insert at End\n");
         printf("3. Delete from Beginning\n");
