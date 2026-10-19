@@ -27,7 +27,7 @@ A comprehensive collection of data structures and algorithms implemented in C an
 │
 ├── Linked Lists
 │   ├── single_linked_list.c         # Singly linked list with basic operations
-│   └── polynomial_linked_list.c     # Polynomial representation and operations using linked lists
+│   └── polynomial_linked_list.c     # Polynomial representation and operations using circular linked lists
 │
 └── Algorithms
     └── search.c                     # Linear and binary search implementations
