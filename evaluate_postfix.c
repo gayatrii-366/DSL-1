@@ -81,7 +81,7 @@ int evaluatePostfix(char* exp) {
 int main() {
     char exp[MAX];
     
-    printf("Enter postfix expression (e.g., 23*5+): ");
+    printf("Enter postfix expression: ");
     if (fgets(exp, MAX, stdin) != NULL) {
         exp[strcspn(exp, "\n")] = 0;
 
